@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tensorflow.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+  </head>
+  <body>
+    <script>
+      const log = console.log;
+      const x = tf.tensor([1, 2, 3]);
+      log(tf.memory());
+      function f(x) {
+        return tf.tidy(() => {
+          const y = x.square();
+          const z = x.mul(y);
+          return z;
+        });
+      }
+      //   x.print(1);
+      f(x).print(1);
+      log(tf.memory());
+    </script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tensorflow.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+  </head>
+  <body>
+    <script>
+      // 함수형 모델 API
+      const input = tf.input({ shape: [784] });
+      const dense1 = tf.layers
+        .dense({ units: 16, activation: "relu" })
+        .apply(input);
+      const dense2 = tf.layers
+        .dense({ units: 10, activation: "softmax" })
+        .apply(dense1);
+      const model = tf.model({ inputs: input, outputs: dense2 });
+
+      // console.log(model.layers);
+      // console.log(model.inputs);
+      // console.log(model.outputs);
+      // model.summary(); // 요약
+    </script>
+  </body>
+</html>

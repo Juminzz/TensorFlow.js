@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tensorflow.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+  </head>
+  <body>
+    <script>
+      const t1 = tf.tensor1d([1, 2, 3]); // 1차원
+      //   t1.print(true); // 1이나 true를 넣으면 더 자세히 나온다. (rank, shape, dtype이 나옴)
+
+      //   const t2 = tf.tensor2d([1, 2, 3, 4], [2, 2]); // 2차원  2행에 2열
+      //   t2.print(1); // 1이나 true를 넣으면 더 자세히 나온다. (rank, shape, dtype이 나옴)
+
+      //   const t2s = tf.tensor2d(
+      //     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      //     [4, 4] // 4행 4열
+      //   );
+      //   t2s.print(1);
+
+      //   비동기 API
+      //   console.log(
+      //     t1.data((d) => {
+      //       console.log(d);
+      //     })
+      //   );
+
+      const t1p =
+        // Promise 형태
+        t1.data((d) => {
+          return d;
+        });
+      console.log(t1p);
+
+      //   동기 API
+      console.log(t1.dataSync());
+    </script>
+  </body>
+</html>

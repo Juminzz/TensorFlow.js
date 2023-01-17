@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tensorflow.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+  </head>
+  <body>
+    <script>
+      const vervos = true;
+      //   상수선언
+      const init = tf.initializers.constant({ value: 7 });
+      console.log(init);
+
+      //   0으로 초기화된 텐서를 얻기
+      tf.zeros([3, 3, 3]).print(1); // 3행 3열 3줄
+      //   tf.zeros([3, 4, 4]).print(1);
+
+      // scalar
+      tf.scalar(2).print(vervos);
+    </script>
+  </body>
+</html>
