@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0/dist/mobilenet.min.js"></script>
+  </head>
+  <body>
+    <form action="/up" method="post" enctype="multipart/form-data">
+      <div class="input-group">
+        <input
+          name="ufile"
+          type="file"
+          class="form-control"
+          id="inputGroupFile04"
+          aria-describedby="inputGroupFileAddon04"
+          aria-label="Upload"
+          required
+        />
+        <button class="btn btn-primary" type="submit">전송</button>
+      </div>
+    </form>
+    <img id="img" src="./dog.jpg" />
+    <script>
+      const img = document.getElementById('img')
+
+      mobilenet.load().then((model) => {
+        model.classify(img).then((predictions) => {
+          console.log('Predictions: ')
+          console.log(predictions)
+          const predictions_con = document.createElement('div')
+          const predictions_div01 = document.createElement('div')
+          const predictions_div01_p = document.createElement('div')
+          const predictions_div02 = document.createElement('div')
+          const predictions_div02_p = document.createElement('div')
+          const predictions_div03 = document.createElement('div')
+          const predictions_div03_p = document.createElement('div')
+          document.body
+            .appendChild(predictions_con)
+            .append(
+              predictions_div01,
+              predictions_div01_p,
+              predictions_div02,
+              predictions_div02_p,
+              predictions_div03,
+              predictions_div03_p
+            )
+          predictions_div01.innerHTML = predictions[0].className
+          predictions_div01_p.innerHTML = predictions[0].probability
+          predictions_div02.innerHTML = predictions[1].className
+          predictions_div02_p.innerHTML = predictions[1].probability
+          predictions_div03.innerHTML = predictions[2].className
+          predictions_div03_p.innerHTML = predictions[2].probability
+        })
+      })
+    </script>
+    <style>
+      #img {
+        width: 500px;
+      }
+    </style>
+  </body>
+</html>
