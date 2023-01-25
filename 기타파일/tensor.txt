@@ -1,0 +1,2 @@
+a: 가중치 +  b :편향
+은닉층 : activation: relu, tanh, softmax, sigmoid

@@ -4,12 +4,35 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tfjs-data</title>
+    <title>Tensorflowjs</title>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
-    <script src="./p082.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0/dist/mobilenet.min.js"></script>
   </head>
   <body>
-    <div id="display"></div>
-    <script></script>
+    <script>
+      const videoElement = document.createElement("video");
+      const button = document.createElement("button"); // 1
+      const div = document.createElement("div"); // 2
+      document.body.append(videoElement, button, div);
+      button.textContent = "Tensor 추출";
+      videoElement.width = 300;
+      videoElement.height = 300;
+
+      const main = async () => {
+        const cam = await tf.data.webcam(videoElement);
+        const mnet = await mobilenet.load(); // 2
+        const img = await cam.capture();
+        const result = await mnet.classify(img); // 2
+        img.print();
+        tf.dispose(img);
+        div.innerHTML =
+          "추측:" + result[0].className + "확률:" + result[0].probability;
+      };
+      main();
+      button.addEventListener("click", () => {
+        // 1
+        main();
+      });
+    </script>
   </body>
 </html>
