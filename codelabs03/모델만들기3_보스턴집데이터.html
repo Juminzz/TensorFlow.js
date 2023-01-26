@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tensorflow.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  </head>
+  <body>
+    <input type="file" name="" id="" onchange="readExcel()" /><button>
+      분석시작
+    </button>
+    <script>
+      let house = [],
+        medv = [];
+      const readExcel = () => {
+        let input = this.event.target;
+        let reader = new FileReader();
+        reader.onload = function () {
+          let data = reader.result;
+          let workBook = XLSX.read(data, { type: "binary" });
+          const x = workBook.Sheets.Data; //   console.log(x); // 데이터 확인용.
+
+          for (let j = 2; j < 508; j++) {
+            let line = [],
+              line2 = [];
+            for (let i = 65; i < 78; i++) {
+              let str = String.fromCharCode(i) + j; // 아스키 코드를 이용해 해당 문자를 뽑을 수 있다.
+              line.push(x[str].v);
+            }
+            line2.push(x["N" + j].v);
+            house.push(line);
+            medv.push(line2);
+          }
+          console.log(house);
+          console.log(medv);
+        };
+        reader.readAsBinaryString(input.files[0]);
+      };
+    </script>
+  </body>
+</html>
