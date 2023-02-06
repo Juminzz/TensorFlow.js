@@ -4,7 +4,9 @@
     <router-link to="/pm25">[공공API] 공기질 데이터</router-link> |
     <router-link to="/corona">[공공API] 코로나 데이터</router-link> |
     <router-link to="/papago">[기업API] 파파고 번역기</router-link> |
-    <router-link to="/crawling">[crawling] 학식 정보</router-link>
+    <router-link to="/crawling">[crawling] 학식 정보</router-link> |
+    <router-link to="/shorturl">Short url</router-link> |
+    <router-link to="/qrcode">QR 코드</router-link>
   </nav>
   <router-view />
 </template>

@@ -35,6 +35,18 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/crawling.vue"),
   },
+  {
+    path: "/shorturl",
+    name: "shorturl",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/shorturl.vue"),
+  },
+  {
+    path: "/qrcode",
+    name: "qrcode",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/qrcode.vue"),
+  },
 ];
 
 const router = createRouter({
