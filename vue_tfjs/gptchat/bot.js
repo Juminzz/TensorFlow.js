@@ -7,13 +7,16 @@ require("dotenv").config();
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
+  // 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  맥북전용
 });
-const token = process.env.botid;
+const token = "5862046986:AAH1Af0d0Y9tVRNvnn1XpqySCm-meZHqGKc";
 const openai = new OpenAIApi(configuration);
 
 invariant(token, "Couldn't read the token the enviroment variable");
 
 const bot = new TelegramBot(token, { polling: true });
+
+const prompts = [];
 
 bot.on("message", async (msg) => {
   const baseCompletion = await openai.createCompletion({
@@ -22,8 +25,6 @@ bot.on("message", async (msg) => {
     temperature: 0.8,
     max_tokens: 1000,
   });
-
-  const chatId = msg.chat.id;
 
   //   bot.sendMessage(chatId, "please wait a few seconds");
 
