@@ -1,7 +1,8 @@
 <template>
   <nav>
     <router-link to="/">Chart</router-link> |
-    <router-link to="/cam">Wepcam Mobile-net</router-link>
+    <router-link to="/cam">Wepcam Mobile-net</router-link> |
+    <router-link to="/img">이미지</router-link>
   </nav>
   <router-view />
 </template>
