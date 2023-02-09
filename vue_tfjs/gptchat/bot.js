@@ -7,13 +7,16 @@ require("dotenv").config();
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
+  // 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  맥북전용
 });
-const token = process.env.botid;
+const token = "5862046986:AAH1Af0d0Y9tVRNvnn1XpqySCm-meZHqGKc";
 const openai = new OpenAIApi(configuration);
 
 invariant(token, "Couldn't read the token the enviroment variable");
 
 const bot = new TelegramBot(token, { polling: true });
+
+const prompts = [];
 
 bot.on("message", async (msg) => {
   const response = await openai.createCompletion({
@@ -29,8 +32,6 @@ bot.on("message", async (msg) => {
     logprobs: null, // logprobs가장 가능성이 높은 토큰과 선택한 토큰 에 대한 로그 확률을 포함합니다 . 예를 들어 logprobs5인 경우 API는 가능성이 가장 높은 5개의 토큰 목록을 반환합니다. API는 항상 샘플링된 토큰을 반환 하므로 응답에 logprob최대 요소가 있을 수 있습니다
     // echo: false, // 프롬프트들 되풀이함 (기본값 false)
   });
-
-  const chatId = msg.chat.id;
 
   //   bot.sendMessage(chatId, "please wait a few seconds");
 
