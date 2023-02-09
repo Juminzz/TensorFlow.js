@@ -46,7 +46,7 @@ export default {
       reader.onload = (e) => {
         // console.log(e.target.result);
         this.result1 = e.target.result;
-        this.imglink = e.target.result; // base64 코드로만 src에 넣어도 그 사진이 고대로 나온다.
+        this.imglink = e.target.result; // base64 코드로만 src에 넣어도 그 사진이 그대로 나옴.
       };
     },
     // base64 코드로 바로 mobilenet 분석이 가능하긴 하지만, ref를 이용해서 분석해보자.
