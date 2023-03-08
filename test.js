@@ -1,70 +1,35 @@
-// 파일 업로드
-var fs = require("fs");
-var request = require("request");
+require("dotenv").config();
+const TelegramBot = require("node-telegram-bot-api");
+const axios = require("axios");
+const cheerio = require("cheerio");
+const request = require("request");
+const token = process.env.VUE_APP_botid;
 
-var drive = google.drive({
-  version: "v3",
-  auth: oauth2Client,
+let key = process.env.VUE_APP_pkey;
+
+const bot = new TelegramBot(token, { polling: true }); //
+
+bot.onText(/\/echo (.+)/, (msg, match) => {
+  const chatId = msg.chat.id;
+  const resp = match[1];
+  bot.sendMessage(chatId, resp);
 });
 
-// 파일 업로드 함수
-function uploadFile(filepath, callback) {
-  // 이미지 파일 읽어오기
-  fs.readFile(filepath, function (err, data) {
-    // 업로드 하기
-    drive.files.create(
-      {
-        resource: {
-          name: "Image.png",
-          mimeType: "image/png",
-        },
-        media: {
-          mimeType: "image/png",
-          body: data,
-        },
-      },
-      function (err, file) {
-        if (err) {
-          callback(err);
-        } else {
-          callback(null, file);
-        }
-      }
-    );
+bot.on("message", (msg) => {
+  const text = msg.text;
+  const chatId = msg.chat.id;
+  const steam = "https://store.steampowered.com";
+
+  axios.get(steam).then((res) => {
+    let $ = cheerio.load(res.data);
+    let lank = [];
+
+    $("div").each(function () {
+      lank.push($(this).text().trim());
+    });
+    // if (text == "스팀") {
+    //   bot.sendMessage(chatId, "d" + lank);
+    console.log(lank);
+    // }
   });
-}
-
-// 파일 업로드
-uploadFile("image.png", function (err, file) {
-  // 분석 함수 실행
-  analyzeImage(file.data.id);
 });
-
-// 이미지 분석하기
-function analyzeImage(imageId) {
-  request.post(
-    {
-      url: "https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY,
-      json: {
-        requests: [
-          {
-            image: {
-              source: {
-                imageUri: "https://drive.google.com/uc?id=" + imageId,
-              },
-            },
-            features: [
-              {
-                type: "LABEL_DETECTION",
-              },
-            ],
-          },
-        ],
-      },
-    },
-    function (err, response, body) {
-      if (err) console.log(err);
-      else console.log(body);
-    }
-  );
-}

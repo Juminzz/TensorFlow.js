@@ -1,0 +1,7 @@
+append
+
+addColumn (컬럼추가)
+
+drop (삭제)
+
+to_json (데이터 변환)
